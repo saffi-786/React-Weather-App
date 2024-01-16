@@ -4,8 +4,7 @@ import search_btn from "./assets/search.png";
 import useInfo from "./Hooks/useInfo";
 import ResultBox from "./Components/ResultBox";
 
-const ApiUrl =
-  "https://api.openweathermap.org/data/2.5/weather?appid=f8be4780b627bb353c930660784cec53&units=metric&q=";
+const ApiKey = "f8be4780b627bb353c930660784cec53";
 
 function App() {
   const [apiData, setApiData] = useState(null);
@@ -50,9 +49,11 @@ function App() {
   ];
 
   const fetchWeather = async () => {
+    const URL = `https://api.openweathermap.org/data/2.5/weather?appid=${ApiKey}&units=metric&q=${inputRef.current.value}`;
+
     setLoading(true);
 
-    fetch(ApiUrl + inputRef.current.value)
+    fetch(URL)
       .then((res) => res.json())
       .then((data) => {
         setApiData(null);
