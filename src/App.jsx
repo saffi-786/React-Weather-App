@@ -81,14 +81,14 @@ function App() {
   };
 
   return (
-    <div className="bg-gray-800 h-screen grid place-items-center gap-1">
+    <div className="bg-gray-800 h-screen grid place-items-center gap-1 font-[Salsa]">
       <div className="bg-white w-96 p-4 rounded-md">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <input
             ref={inputRef}
             type="text"
             placeholder="Enter Your Location"
-            className="text-xl border-b p-1 border-gray-200 font-semibold uppercase flex-1"
+            className="text-xl border-none p-2 font-semibold uppercase flex-1"
           />
           <button>
             <img
@@ -119,7 +119,7 @@ function App() {
             showWeather && (
               <div className="text-center flex flex-col gap-6 mt-10">
                 {apiData && (
-                  <p className="text-xl font-semibold">
+                  <p className="text-xl font-semibold uppercase">
                     {apiData?.name + "," + apiData?.sys?.country}
                   </p>
                 )}
