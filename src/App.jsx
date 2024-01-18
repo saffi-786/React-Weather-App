@@ -1,8 +1,6 @@
-import { useEffect, useReducer, useRef, useState } from "react";
-import axios from "axios";
-import search_btn from "./assets/search.png";
-import useInfo from "./Hooks/useInfo";
-import ResultBox from "./Components/ResultBox";
+import { useRef, useState } from "react";
+import wind from "./assets/wind.png";
+import humidity from "./assets/humidity.png";
 
 const ApiKey = "f8be4780b627bb353c930660784cec53";
 
@@ -89,8 +87,11 @@ function App() {
             type="text"
             placeholder="Enter Your Location"
             className="text-xl border-none p-2 font-semibold uppercase flex-1"
+            onKeyDown={(e) => {
+              if (e.key == "Enter") fetchWeather();
+            }}
           />
-          <button>
+          <button type="Submit">
             <img
               src="https://cdn-icons-png.flaticon.com/512/758/758651.png"
               alt="..."
@@ -117,35 +118,55 @@ function App() {
             </div>
           ) : (
             showWeather && (
-              <div className="text-center flex flex-col gap-6 mt-10">
+              <div className="text-center flex flex-col gap-4 mt-7">
                 {apiData && (
-                  <p className="text-xl font-semibold uppercase">
+                  <p className="text-2xl font-semibold uppercase">
                     {apiData?.name + "," + apiData?.sys?.country}
                   </p>
                 )}
                 <img
                   src={showWeather[0]?.img}
                   alt=""
-                  className="w-52 mx-auto"
+                  className="mx-auto w-44"
                 />
-                <h3 className="text-2xl font-bold text-zinc-800">
+                <h3 className="text-3xl font-bold text-zinc-800">
                   {" "}
                   {showWeather[0]?.type}
                 </h3>
 
                 {apiData && (
-                  <>
-                    <div className="flex justify-center">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/7794/7794499.png "
-                        alt="..."
-                        className="h-9 mt-1 "
-                      />
-                      <h2 className="text-4xl font-extrabold ">
-                        {Math.floor(apiData?.main?.temp)}&#176;C
-                      </h2>
+                  <div>
+                    <div className="my-2">
+                      <div className="flex justify-center">
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/512/7794/7794499.png "
+                          alt="..."
+                          className="h-9 mt-1"
+                        />
+                        <h2 className="text-4xl font-extrabold ">
+                          {Math.floor(apiData?.main?.temp)}&#176;C
+                        </h2>
+                      </div>
                     </div>
-                  </>
+
+                    <div className="mt-6">
+                      <div className="flex justify-around">
+                        <div className="flex justify-center">
+                          <img src={wind} alt="..." className="h-9 mt-1 " />
+                          <h2 className="text-4xl font-extrabold ">
+                            {Math.floor(apiData?.wind?.speed)} kmph
+                          </h2>
+                        </div>
+
+                        <div className="flex justify-center">
+                          <img src={humidity} alt="..." className="h-9 mt-1 " />
+                          <h2 className="text-4xl font-extrabold ">
+                            {Math.floor(apiData?.main?.humidity)}%
+                          </h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 )}
               </div>
             )
